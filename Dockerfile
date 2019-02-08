@@ -36,9 +36,9 @@ RUN tar xzf /tmp/root.tar.gz -C /opt && rm -rf /tmp/root.tar.gz
 RUN echo 'source /opt/root/bin/thisroot.sh' >> ~/.bashrc
 # declare root enviroment variables from '/opt/root/bin/thisroot.sh'
 ENV ROOTSYS "/opt/root"
-ENV PATH "$ROOTSYS/bin:$ROOTSYS/bin/bin:$PATH"
-ENV LD_LIBRARY_PATH "$ROOTSYS/lib:$LD_LIBRARY_PATH"
-ENV PYTHONPATH "$ROOTSYS/lib:$PYTHONPATH"
+ENV PATH "${ROOTSYS}/bin:${PATH}"
+ENV LD_LIBRARY_PATH "${ROOTSYS}/lib:${LD_LIBRARY_PATH}"
+ENV PYTHONPATH "${ROOTSYS}/lib:${PYTHONPATH}"
 # root will be installed to /opt/root (ROOTSYS)
 
 # enable ssh and set root password to "pass"
