@@ -40,3 +40,40 @@ ROOT.enableJSVis()
 ```
 
 Which should give you a nice interactive gaussian histogram.
+
+# Quick setup in Windows (PowerShell)
+
+Using Windows PowerShell you can run the following code snippets in order to quickly build and run the container.
+
+## Build
+
+The following commands will download the Dockerfile and build the image giving it the name "root".
+
+```
+$workdir = "~\Documents\ROOT"
+cd $workdir
+
+wget https://raw.githubusercontent.com/luisobis/root-environment/master/Dockerfile -outfile Dockerfile
+
+$image_name = "root"
+docker build -t $image_name .
+```
+
+## Run
+
+The following commands will launch the container with SSH enabled and create and mount a _notebooks_ directory in order to have persistance. This is what I use to set up my working environment.
+
+```
+$workdir = "~\Documents\ROOT"
+cd $workdir
+md -Force "$workdir\notebooks"
+
+$image_name = "root"
+docker stop $image_name
+docker rm $image_name
+docker system prune -f
+
+docker run -d --name="root" -p 8888:8888 -p 22:22 -v $workdir\notebooks":/notebooks" $notebook_image_name
+docker exec -d $notebook_image_name /usr/sbin/sshd -D
+docker exec -it $notebook_image_name /bin/bash
+```
