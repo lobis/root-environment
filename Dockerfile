@@ -41,6 +41,15 @@ ENV LD_LIBRARY_PATH "${ROOTSYS}/lib:${LD_LIBRARY_PATH}"
 ENV PYTHONPATH "${ROOTSYS}/lib:${PYTHONPATH}"
 # root will be installed to /opt/root (ROOTSYS)
 
+# configuration to use as remote IDE build tool
+RUN yum install -y epel-release
+RUN yum groupinstall -y "Development Tools"
+RUN yum install -y cmake3
+# remove cmake if installed
+RUN yum remove -y cmake
+RUN ln -s /usr/bin/cmake3 /usr/bin/cmake
+RUN yum install -y gdb
+
 # enable ssh and set root password to "pass"
 RUN yum install -y sudo openssh-server openssh-clients
 RUN echo root:${ROOT_PASSWORD} | chpasswd
