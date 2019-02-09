@@ -73,7 +73,7 @@ docker stop $image_name
 docker rm $image_name
 docker system prune -f
 
-docker run -d --name="root" -p 8888:8888 -p 22:22 -v $workdir\notebooks":/notebooks" $image_name
+docker run -d --name="root" -p 8888:8888 -p 22:22 -v $workdir\notebooks":/home/notebooks" $image_name
 docker exec -d $image_name /usr/sbin/sshd -D
 docker exec -it $image_name /bin/bash
 ```
