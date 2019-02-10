@@ -62,7 +62,6 @@ RUN ln -s /usr/bin/cmake3 /usr/bin/cmake
 RUN yum remove -y gdb
 RUN curl -O http://ftp.gnu.org/gnu/gdb/gdb-8.2.tar.xz
 RUN tar xf gdb-8.2.tar.xz -C /opt && rm gdb-8.2.tar.xz
-#RUN cd /opt/gdb-8.2/
 RUN ./opt/gdb-8.2/configure
 RUN make
 RUN mv gdb/gdb /usr/bin/
