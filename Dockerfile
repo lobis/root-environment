@@ -41,6 +41,16 @@ ENV LD_LIBRARY_PATH "${ROOTSYS}/lib:${LD_LIBRARY_PATH}"
 ENV PYTHONPATH "${ROOTSYS}/lib:${PYTHONPATH}"
 # root will be installed to /opt/root (ROOTSYS)
 
+# enable ssh and set root password to "pass"
+RUN yum install -y sudo openssh-server openssh-clients
+RUN echo root:${ROOT_PASSWORD} | chpasswd
+# enable x11 forwarding
+RUN yum install -y xauth
+RUN echo "X11Forwarding yes" >> /etc/ssh/sshd_config
+RUN echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
+# generate empty keys (needed)
+RUN ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa
+
 # configuration to use as remote IDE build tool
 RUN yum install -y epel-release
 RUN yum groupinstall -y "Development Tools"
@@ -48,18 +58,15 @@ RUN yum install -y cmake3
 # remove cmake if installed
 RUN yum remove -y cmake
 RUN ln -s /usr/bin/cmake3 /usr/bin/cmake
-RUN yum install -y gdb
-
-# enable ssh and set root password to "pass"
-RUN yum install -y sudo openssh-server openssh-clients
-RUN echo root:${ROOT_PASSWORD} | chpasswd
-
-# enable x11 forwarding
-RUN yum install -y xauth
-RUN echo "X11Forwarding yes" >> /etc/ssh/sshd_config
-RUN echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
-# generate empty keys (needed)
-RUN ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa
+# install gdb 8.2 > 7.8
+RUN yum remove -y gdb
+RUN curl -O http://ftp.gnu.org/gnu/gdb/gdb-8.2.tar.xz
+RUN tar xf gdb-8.2.tar.xz -C /opt && rm gdb-8.2.tar.xz
+#RUN cd /opt/gdb-8.2/
+RUN ./opt/gdb-8.2/configure
+RUN make
+RUN mv gdb/gdb /usr/bin/
+RUN rm -rf gdb/ && rm -rf /opt/gdb-8.2 && rm Makefile
 
 # clear yum cache
 RUN yum -y clean all
