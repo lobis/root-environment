@@ -2,9 +2,10 @@ FROM centos:7.6.1810
 
 LABEL description="python development environment for CERN ROOT framework"
 
+ARG ROOT_PASSWORD="pass"
 ARG ROOT_TAR="root_v6.16.00.Linux-centos7-x86_64-gcc4.8.tar.gz"
 ARG ANACONDA2_INSTALLER="Anaconda2-2018.12-Linux-x86_64.sh"
-ARG ROOT_PASSWORD="pass"
+ARG GDB_VERSION="8.1"
 
 RUN yum -y update
 # install anaconda (jupyter and other useful python packages)
@@ -58,14 +59,14 @@ RUN yum install -y cmake3
 # remove cmake if installed
 RUN yum remove -y cmake
 RUN ln -s /usr/bin/cmake3 /usr/bin/cmake
-# install gdb 8.2 > 7.8
+# install gdb 8.1 > 7.8
 RUN yum remove -y gdb
-RUN curl -O http://ftp.gnu.org/gnu/gdb/gdb-8.2.tar.xz
-RUN tar xf gdb-8.2.tar.xz -C /opt && rm gdb-8.2.tar.xz
-RUN ./opt/gdb-8.2/configure
+RUN curl -O http://ftp.gnu.org/gnu/gdb/gdb-${GDB_VERSION}.tar.xz
+RUN tar xf gdb-${GDB_VERSION}.tar.xz -C /opt && rm -f gdb-${GDB_VERSION}.tar.xz
+RUN ./opt/gdb-${GDB_VERSION}/configure --with-python
 RUN make
-RUN mv gdb/gdb /usr/bin/
-RUN rm -rf gdb/ && rm -rf /opt/gdb-8.2 && rm Makefile
+RUN yum install -y texi2html texinfo 
+RUN make install
 
 # clear yum cache
 RUN yum -y clean all
