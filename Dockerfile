@@ -75,7 +75,7 @@ RUN mkdir ~/bin
 RUN echo -e "source /opt/root/bin/thisroot.sh\njupyter notebook --port=8888 --no-browser --allow-root --ip=0.0.0.0 --NotebookApp.token='' --NotebookApp.password=''" > ~/bin/startup_script.sh
 RUN chmod +x ~/bin/startup_script.sh
 
-WORKDIR /home
+WORKDIR /home/notebooks
 
 EXPOSE 8888 22
 
