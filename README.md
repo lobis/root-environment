@@ -6,10 +6,10 @@ It installs _ROOT_ and its documented prerequisites (https://root.cern.ch/build-
 
 # How to run
 
-To build the container simply go to the directory containing _Dockerfile_ (with this exact name) and run the following command replacing _$notebook_image_name_ with the name you want to give the image (e.g. _root_).
+To build the container simply go to the directory containing _Dockerfile_ (with this exact name) and run the following command replacing _$image_name_ with the name you want to give the image (e.g. _root_).
 ```
 $image_name = "lobis/root"
-docker build -t $notebook_image_name .
+docker build -t $image_name .
 ```
 
 Alternatively you can directly pull the image from Docker Hub which is synchronized with this repository. This is the recommended method of obtaining the image.
