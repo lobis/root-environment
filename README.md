@@ -19,7 +19,7 @@ docker pull lobis/root
 
 Running the container launches the notebook server on port 8888. If you want to use _SSH_ you would need to map port 22. Use this command to run the container. It is also recommended to mount a volume in order to save the notebooks you work on, you do this via the _-v_ flag for example ```-v $workdir\notebooks":/home/notebooks"``` mounts your local directory _$workdir\notebooks_ to container's _/home/notebooks_
 ```
-docker run -d --name="root" -p 8888:8888 -p 22:22 -v $workdir\notebooks":/home/notebooks" $notebook_image_name
+docker run -d --name="root" -p 8888:8888 -p 22:22 -v $workdir\notebooks":/home/notebooks" $image_name
 ```
 # Features
 
