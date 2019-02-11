@@ -51,6 +51,7 @@ The following commands will download the Dockerfile and build the image giving i
 
 ```
 $workdir = "~\Documents\ROOT"
+md -Force "$workdir"
 cd $workdir
 
 wget https://raw.githubusercontent.com/luisobis/root-environment/master/Dockerfile -outfile Dockerfile
