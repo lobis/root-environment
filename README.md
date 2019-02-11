@@ -8,7 +8,13 @@ It installs _ROOT_ and its documented prerequisites (https://root.cern.ch/build-
 
 To build the container simply go to the directory containing _Dockerfile_ (with this exact name) and run the following command replacing _$notebook_image_name_ with the name you want to give the image (e.g. _root_).
 ```
-#docker build -t $notebook_image_name .
+$image_name = "lobis/root"
+docker build -t $notebook_image_name .
+```
+
+Alternatively you can directly pull the image from Docker Hub which is synchronized with this repository. This is the recommended method of obtaining the image.
+```
+docker pull lobis/root
 ```
 
 Running the container launches the notebook server on port 8888. If you want to use _SSH_ you would need to map port 22. Use this command to run the container. It is also recommended to mount a volume in order to save the notebooks you work on, you do this via the _-v_ flag for example ```-v $workdir\notebooks":/home/notebooks"``` mounts your local directory _$workdir\notebooks_ to container's _/home/notebooks_
@@ -56,8 +62,13 @@ cd $workdir
 
 wget https://raw.githubusercontent.com/luisobis/root-environment/master/Dockerfile -outfile Dockerfile
 
-$image_name = "root"
+$image_name = "lobis/root"
 docker build -t $image_name .
+```
+
+Alternatively you can directly pull the image from Docker Hub.
+```
+docker pull lobis/root
 ```
 
 ## Run
