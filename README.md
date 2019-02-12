@@ -60,7 +60,7 @@ $workdir = "~\Documents\ROOT"
 md -Force "$workdir"
 cd $workdir
 
-wget https://raw.githubusercontent.com/luisobis/root-environment/master/Dockerfile -outfile Dockerfile
+wget https://raw.githubusercontent.com/lobis/root-environment/master/Dockerfile -outfile Dockerfile
 
 $image_name = "lobis/root"
 docker build -t $image_name .
