@@ -47,6 +47,8 @@ ROOT.enableJSVis()
 
 Which should give you a nice interactive gaussian histogram.
 
+![root_jupyter_demo](https://user-images.githubusercontent.com/35803280/52700368-136cf700-2f78-11e9-9e51-c54ff36c544f.gif)
+
 # Quick setup in Windows (PowerShell)
 
 Using Windows PowerShell you can run the following code snippets in order to quickly build and run the container.
