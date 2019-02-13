@@ -76,6 +76,7 @@ docker pull lobis/root
 ## Run
 
 The following commands will launch the container with SSH enabled and create and mount a _notebooks_ directory in order to have persistance. This is what I use to set up my working environment.
+We add the _--privileged_ flag in _docker run_ to allow remote debugging with GDB (https://github.com/lobis/root-environment/issues/1).
 
 ```powershell
 $workdir = "~\Documents\ROOT"
@@ -88,7 +89,7 @@ docker stop root
 docker rm root
 docker system prune -f
 
-docker run -d --name="root" -p 8888:8888 -p 22:22 -v $workdir\notebooks":/home/notebooks" $image_name
+docker run --privileged -d --name="root" -p 8888:8888 -p 22:22 -v $workdir\notebooks":/home/notebooks" $image_name
 docker exec -d root /usr/sbin/sshd -D
 docker exec -it root /bin/bash
 ```
